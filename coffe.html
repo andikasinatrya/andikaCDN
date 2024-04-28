@@ -69,8 +69,6 @@
 
                 <section class="form-container" x-show="$store.cart.items.length">
                     <form action="" id="checkoutForm">
-                        <!-- <input type="hidden" name="items" x-model="$JSON.stringify(store.cart.items)">
-                        <input type="hidden" name="total" x-model="$store.cart.total"> -->
                         <h5>Customer Detail</h5>
 
                         <label for="name">
@@ -80,12 +78,13 @@
 
                         <label for="email">
                             <span>Email</span>
-                            <input type="email" name="email" id=" email">
+                            <input type="email" name="email" id="email">
+
                         </label>
 
                         <label for="phone">
                             <span>Phone</span>
-                            <input type="number" name="phone id=" phone" autocomplete="off">
+                            <input type="number" name="phone" id="phone" autocomplete="off">
                         </label>
 
                         <button class="checkout-button disabled" type="submit" id="checkout-button"
@@ -353,9 +352,14 @@
         </section>
 
         <section class="modal" id="item-detail-modal" x-data="products">
-            <template x-for="(item, index) in items" x-key="index">
-                <nav class="modal-container">
-                    <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <nav class="modal-container">
+                <a href="#" class="close-icon">
+                    <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <use href="img/feather-sprite.svg#x" />
+                    </svg>
+                </a>
+                <template x-for="(item, index) in items" x-key="index">
                     <aside class="modal-content">
                         <img :src="`./img/products/${item.img}`" :alt="item.name">
                         <article class="product-content">
@@ -395,8 +399,8 @@
                             </article>
                         </article>
                     </aside>
-                </nav>
-            </template>
+                </template>
+            </nav>
         </section>
     </main>
 

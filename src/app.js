@@ -6,30 +6,35 @@ document.addEventListener("alpine:init", () => {
         name: "Robusta Brzail",
         img: "1.jpg",
         price: 20000,
+        description: "Mang Eak",
       },
       {
         id: 2,
         name: "Robusta Latte",
         img: "2.jpg",
         price: 25000,
+        description: "Mang Eak",
       },
       {
         id: 3,
         name: "Robusta Black",
         img: "3.jpg",
         price: 30000,
+        description: "Mang Eak",
       },
       {
         id: 4,
         name: "Robusta lorem",
         img: "4.jpg",
         price: 35000,
+        description: "Mang Eak",
       },
       {
         id: 5,
         name: "Robusta ipsum",
         img: "5.jpg",
         price: 10000,
+        description: "Mang Eak",
       },
     ],
   }));
@@ -92,35 +97,6 @@ document.addEventListener("alpine:init", () => {
     },
   });
 });
-
-// form Validation
-// const checkoutButton = document.querySelector(".checkout-button");
-// checkoutButton.disabled = true;
-
-// const form = document.querySelector("#checkoutForm");
-
-// form.addEventListener("keyup", function () {
-//   for (let i = 0; i < form.elements.length; i++) {
-//     if (form.elements[i].value.length !== 0) {
-//       checkoutButton.classList.remove("disabled");
-//       checkoutButton.classList.add("disabled");
-//     } else {
-//       return false;
-//     }
-//   }
-//   checkoutButton.disabled = false;
-//   checkoutButton.classList.remove("disabled");
-// });
-
-// Kirim data ketika checkout di klik
-// checkoutButton.addEventListener("click", function (e) {
-//   e.preventDefault();
-
-//   const formData = new FormData(form);
-//   const data = new URLSearchParams(formData);
-//   const objData = Object.fromEntries(data).items;
-//   console.log(objData);
-// });
 
 //Konfersi ke Rupiah
 const rupiah = (number) => {

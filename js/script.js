@@ -1,10 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Fungsi ini akan dipanggil ketika halaman HTML dimuat sepenuhnya
-  // Di sinilah kita akan ikatkan Alpine.js ke elemen yang diinginkan
-
-  // Inisialisasi Alpine.js
-  Alpine.start();
-
   // Toggle class active
   const navbarNav = document.querySelector(".navbar-nav");
   // Ketika Hamburger Menu Di Klik
