@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop Andika</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <!-- My Style -->
+    <link rel="stylesheet" href="css/coffe.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Logo -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Alpine Js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="src/app.js"></script>
+</head>
+
+<body>
+
+    <header x-data>
+        <nav class="navbar" data-aos="fade-right" data-aos-duration="1000">
+            <h1 class="navbar-logo">Coffee<span>Andika</span>.</h1>
+
+            <nav class="navbar-nav">
+                <a href="#home">Home</a>
+                <a href="#about">Tentang Kami</a>
+                <a href="#menu">Menu</a>
+                <a href="#products">Produk</a>
+                <a href="#timeline">Ulasan</a>
+                <a href="#contact">Kontak</a>
+            </nav>
+
+            <nav class="navbar-extra">
+                <a href="#" id="search-button"><i data-feather="search"></i></a>
+                <a href="#" id="shopping-cart-button">
+                    <i data-feather="shopping-cart"></i>
+                    <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+                </a>
+                <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+            </nav>
+
+            <nav class="search-form">
+                <input type="search" id="search-box" placeholder="search here...">
+                <label for="search-box"><i data-feather="search"></i></label>
+            </nav>
+
+            <nav class="shopping-cart">
+                <template x-for="(item, index) in $store.cart.items" x-keys="index">
+                    <aside class="cart-item">
+                        <img :src="`img/products/${item.img}`" :alt="item.name" data-aos="fade-down"
+                            data-aos-duration="1000">
+                        <div class="item-detail">
+                            <h3 x-text="item.name"></h3>
+                            <div class="item-price">
+                                <span x-text="rupiah(item.price)"></span> &times;
+                                <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                                <span x-text="item.quantity"></span>
+                                <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+                                <span x-text="rupiah(item.total)"></span>
+                            </div>
+                        </div>
+                    </aside>
+                </template>
+                <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart Is Empty</h4>
+                <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+                <section class="form-container" x-show="$store.cart.items.length">
+                    <form action="" id="checkoutForm">
+                        <!-- <input type="hidden" name="items" x-model="$JSON.stringify(store.cart.items)">
+                        <input type="hidden" name="total" x-model="$store.cart.total"> -->
+                        <h5>Customer Detail</h5>
+
+                        <label for="name">
+                            <span>Name</span>
+                            <input type="text" name="name" id="name">
+                        </label>
+
+                        <label for="email">
+                            <span>Email</span>
+                            <input type="email" name="email" id=" email">
+                        </label>
+
+                        <label for="phone">
+                            <span>Phone</span>
+                            <input type="number" name="phone id=" phone" autocomplete="off">
+                        </label>
+
+                        <button class="checkout-button disabled" type="submit" id="checkout-button"
+                            value="checkout">CHECKOUT</button>
+                    </form>
+                </section>
+            </nav>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home" data-aos="fade-down" data-aos-duration="1000">
+            <article class="content">
+                <h1>Mari Nikmati Seduhan <span>Coffee</span></h1>
+                <p>Kopi Adalah Minuman Sejuta Umat Yang Dapat Dinikmati Dari Berbagai Kalangan. Kopi Juga Dapat
+                    Menunjang
+                    Efektivitas Dari Kinerja Supaya Tidak Mudah Lelah.</p>
+            </article>
+        </section>
+
+        <section id="about" class="about">
+            <h2 data-aos="fade-down" data-aos-duration="1000"><span>Tentang</span> Kami</h2>
+            <article class="row">
+                <aside class="about-img">
+                    <img src="img/tentang-kami.jpg" alt="Tentang Kami" data-aos="fade-right" data-aos-duration="1000">
+                </aside>
+                <article class="content" data-aos="fade-left" data-aos-duration="2000">
+                    <h3>Kenapa Memilih Kopi Kami?</h3>
+                    <p>SETIDAKNYA itulah sepotong percakapan antara Ben dan Brie di film Filosofi Kopi 2 yang sedang
+                        tayang
+                        saat ini. Pertanyaan yang hampir sama sering singgah kepada saya. Orang-orang kerap bertanya
+                        pertanyaan semacam “kenapa harus minum kopi?” padahal rasanya ‘kan pahit dan nggak ada
+                        manis-manisnya. Jika saya bilang saya suka dengan rasa kopi, hal yang sama bisa juga dijawab
+                        saat
+                        ada yang bertanya “kenapa saya suka makan bakso”. Rasa bukan satu-satunya hal yang membuat kopi
+                        istimewa. Kopi itu minuman yang banyak manfaat, makna dan tentunya melibatkan banyak jiwa.</p>
+                    <h5>Kopi Itu Menyehatkan</h5>
+                    <p>
+                        Kalau alasan yang satu ini pasti bukanlah isapan jempol belaka. Sudah banyak penelitian yang
+                        mengatakan bahwa kopi dan kafein yang dikandungnya baik untuk tubuh. Penelitian semacam kopi
+                        mampu
+                        menurunkan resiko alzeimer, kanker otak, meremajakan kulit hingga menambah konsentrasi adalah
+                        sedikit dari banyaknya kebaikan yang diberikan kopi untuk kesehatan manusia. Hal ini membuat
+                        kopi
+                        pastinya lebih unggul dari jenis minuman lainnya. Jadi masih ada alasan untuk tidak menikmati
+                        kopi?
+                    </p>
+                    <h5>Kopi Itu Membahagiakan</h5>
+                    <p>Kalau alasan ini sudah pasti valid. Selain membahagiakan karena kafein mampu meningkatkan
+                        produksi
+                        dopamin yang secara ajaib memberikan efek bahagia bagi para peminumnya. Itu kenapa jika kamu
+                        mengalami hari yang buruk dan lalu memutuskan untuk minum kopi seketika perasaan berubah menjadi
+                        lebih baik atau malah semakin bahagia.</p>
+                </article>
+            </article>
+        </section>
+
+        <aside id="menu" class="menu">
+            <h2 data-aos="fade-down" data-aos-duration="1000"><span>Menu</span> Kami</h2>
+            <p data-aos="fade-up" data-aos-duration="1000">Menu Kami Tersedia Berbagai Macam Kopi Seperti Berikut:</p>
+
+            <aside class="row">
+                <aside class="menu-card" data-aos="fade-up-right" data-aos-duration="2000">
+                    <img src="img/menu/1.jpg" alt="Coffe Latte" class="menu-card-img">
+                    <h3 class="menu-card-title">- Coffe Latte</h3>
+                    <p class="menu-card-price">IDR 80K</p>
+                </aside>
+                <aside class="menu-card" data-aos="fade-up-left" data-aos-duration="2000">
+                    <img src="img/menu/coffe capuchino.jpg" alt="Coffe Latte" class="menu-card-img">
+                    <h3 class="menu-card-title">- Coffe Capucino</h3>
+                    <p class="menu-card-price">IDR 50K</p>
+                </aside>
+                <aside class="menu-card" data-aos="fade-up-right" data-aos-duration="2000">
+                    <img src="img/menu/coffe ekspresso.jpg" alt="Coffe Latte" class="menu-card-img">
+                    <h3 class="menu-card-title">- Coffe Ekspresso</h3>
+                    <p class="menu-card-price">IDR 90K</p>
+                </aside>
+                <aside class="menu-card" data-aos="fade-up-left" data-aos-duration="2000">
+                    <img src="img/menu/americano coffe.jpg" alt="Coffe Latte" class="menu-card-img">
+                    <h3 class="menu-card-title">- Coffe Americano</h3>
+                    <p class="menu-card-price">IDR 40K</p>
+                </aside>
+                <aside class="menu-card" data-aos="fade-up-right" data-aos-duration="2000">
+                    <img src="img/menu/black-coffe.jpg" alt="Coffe Latte" class="menu-card-img">
+                    <h3 class="menu-card-title">- Black Coffe</h3>
+                    <p class="menu-card-price">IDR 20K</p>
+                </aside>
+            </aside>
+
+        </aside>
+
+        <section class="products" id="products" x-data="products">
+            <h2 data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500"><span>Produk Unggulan</span>
+                Kami</h2>
+            <p data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">Andika ipsum, dolor sit amet
+                consectetur adipisicing elit. Repudiandae voluptatum iusto maxime id quas
+                voluptates!</p>
+
+            <nav class="row">
+                <template x-for="(item, index) in items" x-key="index">
+                    <article class="product-card">
+                        <nav class="product-icons">
+                            <a href="#" @click.prevent="$store.cart.add(item)">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#shopping-cart" />
+                                </svg>
+                            </a>
+                            <a href="#" class="item-detail-button">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#eye" />
+                                </svg>
+                            </a>
+                        </nav>
+                        <aside class="product-image">
+                            <img :src="`img/products/${item.img}`" :alt="item.name" data-aos="fade-down-right"
+                                data-aos-duration="1000">
+                        </aside>
+                        <article class="product-content">
+                            <h3 x-text="item.name" data-aos="zoom-in-down" data-aos-duration="1000"></h3>
+                            <nav class="product-stars" data-aos="zoom-in-down" data-aos-duration="1000">
+                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#star" />
+                                </svg>
+                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#star" />
+                                </svg>
+                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#star" />
+                                </svg>
+                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#star" />
+                                </svg>
+                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#star" />
+                                </svg>
+                            </nav>
+                            <article class="product-price" data-aos="zoom-in-down" data-aos-duration="1000">
+                                <span x-text="rupiah(item.price)"></span>
+                            </article>
+                        </article>
+                    </article>
+                </template>
+            </nav>
+        </section>
+
+        <section class="parent-container" id="timeline">
+            <h2 data-aos="fade-down" data-aos-duration="1000"><span>Ulasan</span> Kami</h2>
+            <article class="timeline">
+                <aside class="container left-container">
+                    <img src="./img/menu/1.jpg">
+                    <article class="text-box" data-aos="zoom-in-left" data-aos-duration="1000">
+                        <h2>Coffe Latte</h2>
+                        <small>Kopi Single Origin yang Memikat Lidah </small>
+                        <p>Saya baru saja mencoba kopi single origin terbaru dan pengalaman saya sangat memuaskan. Kopi
+                            ini
+                            memiliki karakteristik unik dari daerah asalnya, memberikan aroma yang khas dan cita rasa
+                            yang
+                            mendalam. Saya menyukai keaslian rasa kopi ini, yang membuatnya berbeda dari campuran kopi
+                            biasa. Keasaman yang seimbang dan aftertaste yang tahan lama membuatnya menjadi pilihan yang
+                            sangat memikat bagi pecinta kopi sejati.
+                        </p>
+                        <span class="left-container-arrow"></span>
+                    </article>
+                </aside>
+                <aside class="container right-container">
+                    <img src="./img/menu/americano coffe.jpg">
+                    <article class="text-box" data-aos="zoom-in-right" data-aos-duration="1000">
+                        <h2>Coffe Capuchino</h2>
+                        <small>Kopi Cold Brew yang Menyegarkan </small>
+                        <p>Dalam cuaca panas, saya selalu mencari minuman penyegar, dan kopi cold brew adalah pilihan
+                            yang
+                            sempurna. Kelembutan rasa yang dihasilkan dari proses perendaman dalam waktu yang cukup lama
+                            menciptakan minuman kopi yang lebih ringan namun tetap kaya akan cita rasa. Rasanya yang
+                            halus
+                            dan kadar asam yang rendah membuatnya cocok untuk dinikmati tanpa tambahan gula. Cold brew
+                            menjadi pilihan yang menyegarkan dan ideal untuk mereka yang ingin menikmati kopi dengan
+                            nuansa
+                            baru. </p>
+                        <span class="right-container-arrow"></span>
+                    </article>
+                </aside>
+                <aside class="container left-container">
+                    <img src="./img/menu/black-coffe.jpg">
+                    <article class="text-box" data-aos="zoom-in-left" data-aos-duration="1000">
+                        <h2>Coffe Ekspresso</h2>
+                        <small>Kopi Instan yang Praktis Tanpa Mengorbankan Rasa </small>
+                        <p>Sebagai pecinta kopi dengan jadwal yang padat, saya sering kali mencari solusi cepat dan
+                            praktis.
+                            Kopi instan kini telah menjadi penyelamat saya. Saya baru saja mencoba merek kopi instan
+                            terkenal, dan saya terkesan dengan rasa yang autentik dan tekstur yang mirip dengan kopi
+                            seduh.
+                            Kelebihan lainnya adalah kemudahan dalam persiapan, menjadikannya pilihan yang ideal untuk
+                            orang-orang yang selalu dalam perjalanan tanpa ingin mengorbankan kenikmatan rasa kopi. </p>
+                        <span class="left-container-arrow"></span>
+                    </article>
+                </aside>
+                <aside class="container right-container">
+                    <img src="./img/menu/coffe capuchino.jpg">
+                    <article class="text-box" data-aos="zoom-in-right" data-aos-duration="1000">
+                        <h2>Coffe Americano</h2>
+                        <small>Kopi Cokelat dengan Nuansa Manis yang Memikat </small>
+                        <p>Saya baru-baru ini mencoba kopi yang terinfus dengan berbagai rasa unik seperti vanila, kayu
+                            manis, dan cokelat. Rasanya yang menggoda membuatnya menjadi variasi menarik dari kopi
+                            tradisional. Setiap tegukan memberikan sentuhan rasa yang berbeda-beda, menciptakan
+                            pengalaman
+                            yang lebih kompleks dan menyenangkan. Ini adalah pilihan yang menarik bagi mereka yang ingin
+                            sedikit variasi dalam rutinitas kopi mereka tanpa harus mencari minuman kopi campuran yang
+                            rumit.
+                        </p>
+                        <span class="right-container-arrow"></span>
+                    </article>
+                </aside>
+                <aside class="container left-container">
+                    <img src="./img/menu/coffe ekspresso.jpg">
+                    <article class="text-box" data-aos="zoom-in-left" data-aos-duration="1000">
+                        <h2>Black Coffe</h2>
+                        <small>Kopi dengan Aroma Bunga yang Memanjakan Indera </small>
+                        <p>Pengalaman saya dengan kopi yang memiliki aroma bunga seperti lavender atau jasmine
+                            benar-benar
+                            mengagumkan. Aroma yang lembut dan rasa yang ringan memberikan kesan yang begitu
+                            menyegarkan.
+                            Ini adalah pilihan yang ideal untuk mereka yang menginginkan pengalaman minum kopi yang
+                            lebih
+                            halus dan aromatik. Setiap tegukan membawa nuansa bunga yang memanjakan indera, menciptakan
+                            pengalaman yang hampir seperti perjalanan melalui kebun bunga dalam secangkir kopi.</p>
+                        <span class="right-container-arrow"></span>
+                    </article>
+                </aside>
+            </article>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2 data-aos="fade-down" data-aos-duration="1000"><span>Kontak</span> Kami</h2>
+            <p data-aos="fade-down" data-aos-duration="1500">Hubungi Kontak Kami Untuk Mendapatkan Informasi Lebih
+                Lanjut</p>
+
+            <nav class="row">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d576.9603795927995!2d110.56971913847987!3d-7.380094949575111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a717560392d19%3A0x92cdb3400fd71397!2sBANGTAGOR!5e0!3m2!1sid!2sid!4v1713596829119!5m2!1sid!2sid"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"
+                    data-aos="fade-right" data-aos-duration="1000"></iframe>
+                <form action="" data-aos="fade-left" data-aos-duration="1000">
+                    <nav class="input-group">
+                        <i data-feather="user"></i>
+                        <input type="text" placeholder="Nama">
+                    </nav>
+                    <nav class="input-group">
+                        <i data-feather="mail"></i>
+                        <input type="text" placeholder="Email">
+                    </nav>
+                    <nav class="input-group">
+                        <i data-feather="phone"></i>
+                        <input type="text" placeholder="Phone Number">
+                    </nav>
+                    <button type="submit" class="btn" data-aos="fade-up" data-aos-duration="1000">Kirim Pesan</button>
+                </form>
+            </nav>
+        </section>
+
+        <section class="modal" id="item-detail-modal" x-data="products">
+            <template x-for="(item, index) in items" x-key="index">
+                <nav class="modal-container">
+                    <a href="#" class="close-icon"><i data-feather="x"></i></a>
+                    <aside class="modal-content">
+                        <img :src="`./img/products/${item.img}`" :alt="item.name">
+                        <article class="product-content">
+                            <h3 x-text="item.name"></h3>
+                            <p x-text="item.description"></p>
+                            <article class="product-content">
+                                <h3>Coffee Beans 1</h3>
+                                <nav class="product-stars">
+                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <use href="img/feather-sprite.svg#star" />
+                                    </svg>
+                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <use href="img/feather-sprite.svg#star" />
+                                    </svg>
+                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <use href="img/feather-sprite.svg#star" />
+                                    </svg>
+                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <use href="img/feather-sprite.svg#star" />
+                                    </svg>
+                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <use href="img/feather-sprite.svg#star" />
+                                    </svg>
+                                </nav>
+                                <article class="product-price" x-text="rupiah(item.price)"></article>
+                                <a href="#" @click.prevent="$store.cart.add(item)">
+                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <use href="img/feather-sprite.svg#shopping-cart" />
+                                    </svg>
+                                    <span>Add To Cart</span></a>
+                            </article>
+                        </article>
+                    </aside>
+                </nav>
+            </template>
+        </section>
+    </main>
+
+    <footer>
+        <nav class="sosials">
+            <a href="#"><i data-feather="instagram"></i></a>
+            <a href="#"><i data-feather="facebook"></i></a>
+            <a href="#"><i data-feather="x"></i></a>
+        </nav>
+
+        <nav class="links">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#timeline">Ulasan</a>
+            <a href="#contact">Kontak</a>
+        </nav>
+
+        <article class="copyright">
+            <p>Created by <a href="#">Andika</a>. | &copy; 2024.</p>
+        </article>
+    </footer>
+
+    <script>
+        feather.replace();
+    </script>
+
+    <script src="js/script.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
