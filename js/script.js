@@ -43,15 +43,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Modal Box
   const itemDetailModal = document.querySelector("#item-detail-modal");
-  const itemDetailButtons = document.querySelectorAll(".item-detail-button");
+  // const itemDetailButtons = document.querySelectorAll(".item-detail-button");
 
-  //looping for All itemDetailButtons
-  itemDetailButtons.forEach((btn) => {
-    btn.onclick = (e) => {
-      itemDetailModal.style.display = "flex";
-      e.preventDefault();
-    };
-  });
+  // //looping for All itemDetailButtons
+  // itemDetailButtons.forEach((btn) => {
+  //   btn.onclick = (e) => {
+  //     itemDetailModal.style.display = "flex";
+  //     e.preventDefault();
+  //   };
+  // });
 
   // Klik Tombol Close
   document.querySelector(".modal .close-icon").onclick = (e) => {

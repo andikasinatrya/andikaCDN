@@ -43,6 +43,7 @@ document.addEventListener("alpine:init", () => {
     items: [],
     total: 0,
     quantity: 0,
+    modalData: { items: [] },
     add(newItem) {
       // Cek apakah ada barang yang sama di cart
       const cartItem = this.items.find((item) => item.id === newItem.id);
@@ -94,6 +95,9 @@ document.addEventListener("alpine:init", () => {
         this.quantity--;
         this.total -= cartItem.price;
       }
+    },
+    showModal(dataProduct) {
+      this.modalData.items = [dataProduct];
     },
   });
 });

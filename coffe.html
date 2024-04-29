@@ -193,7 +193,7 @@
                                     <use href="img/feather-sprite.svg#shopping-cart" />
                                 </svg>
                             </a>
-                            <a href="#" class="item-detail-button">
+                            <a href="#" class="item-detail-button" @click.prevent="$store.cart.showModal(dataProduct)">
                                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <use href="img/feather-sprite.svg#eye" />
@@ -351,57 +351,44 @@
             </nav>
         </section>
 
-        <section class="modal" id="item-detail-modal" x-data="products">
+        <section class="modal" id="item-detail-modal" x-data="{ modalProduct: $store.cart.modalProduct }">
             <nav class="modal-container">
-                <a href="#" class="close-icon">
+                <a href="#" class="close-icon" @click.prevent="$refs.modal.style.display = 'none'">
                     <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <use href="img/feather-sprite.svg#x" />
                     </svg>
                 </a>
-                <template x-for="(item, index) in items" x-key="index">
-                    <aside class="modal-content">
-                        <img :src="`./img/products/${item.img}`" :alt="item.name">
+                <aside class="modal-content" x-show="modalProduct.id">
+                    <img :src="`./img/products/${modalProduct.img}`" :alt="modalProduct.name">
+                    <article class="product-content">
+                        <h3 x-text="modalProduct.name"></h3>
+                        <p x-text="modalProduct.description"></p>
                         <article class="product-content">
-                            <h3 x-text="item.name"></h3>
-                            <p x-text="item.description"></p>
-                            <article class="product-content">
-                                <h3>Coffee Beans 1</h3>
-                                <nav class="product-stars">
-                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <use href="img/feather-sprite.svg#star" />
-                                    </svg>
-                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <use href="img/feather-sprite.svg#star" />
-                                    </svg>
-                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <use href="img/feather-sprite.svg#star" />
-                                    </svg>
-                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <use href="img/feather-sprite.svg#star" />
-                                    </svg>
-                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <use href="img/feather-sprite.svg#star" />
-                                    </svg>
-                                </nav>
-                                <article class="product-price" x-text="rupiah(item.price)"></article>
-                                <a href="#" @click.prevent="$store.cart.add(item)">
-                                    <svg width="24" height="24" fill="currentColor" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <use href="img/feather-sprite.svg#shopping-cart" />
-                                    </svg>
-                                    <span>Add To Cart</span></a>
-                            </article>
+                            <h3>Coffee Beans 1</h3>
+                            <nav class="product-stars">
+                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#star" />
+                                </svg>
+                                <!-- Add more star icons if needed -->
+                            </nav>
+                            <article class="product-price" x-text="rupiah(modalProduct.price)"></article>
+                            <a href="#" @click.prevent="$store.cart.add(modalProduct)">
+                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <use href="img/feather-sprite.svg#shopping-cart" />
+                                </svg>
+                                <span>Add To Cart</span>
+                            </a>
                         </article>
-                    </aside>
-                </template>
+                    </article>
+                </aside>
             </nav>
         </section>
+
+
+
     </main>
 
     <footer>
