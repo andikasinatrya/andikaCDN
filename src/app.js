@@ -102,6 +102,10 @@ document.addEventListener("alpine:init", () => {
   });
 });
 
+window.showModal = (dataProduct) => {
+  Alpine.store("cart").showModal(dataProduct);
+};
+
 //Konfersi ke Rupiah
 const rupiah = (number) => {
   return Intl.NumberFormat("id-ID", {
