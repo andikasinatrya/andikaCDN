@@ -20,11 +20,20 @@
 
 <body>
 
-    <header x-data>
-        <nav class="navbar" data-aos="fade-right" data-aos-duration="1000">
+    <header x-data="">
+
+        <nav class="navbar" x-data="{ 
+    isActiveNavbar: false, 
+    isActiveSearchForm: false, 
+    isActiveShoppingCart: false,
+    toggleNavbar() { this.isActiveNavbar = !this.isActiveNavbar }, 
+    toggleSearchForm() { this.isActiveSearchForm = !this.isActiveSearchForm },
+    toggleShoppingCart() { this.isActiveShoppingCart = !this.isActiveShoppingCart },
+}" x-on:click.outside="isActiveNavbar = false; isActiveSearchForm = false; isActiveShoppingCart = false">
+
             <h1 class="navbar-logo">Coffee<span>Andika</span>.</h1>
 
-            <nav class="navbar-nav">
+            <nav class="navbar-nav" :class="{ 'active': isActiveNavbar }">
                 <a href="#home">Home</a>
                 <a href="#about">Tentang Kami</a>
                 <a href="#menu">Menu</a>
@@ -34,20 +43,23 @@
             </nav>
 
             <nav class="navbar-extra">
-                <a href="#" id="search-button"><i data-feather="search"></i></a>
-                <a href="#" id="shopping-cart-button">
+                <a href="#" id="search-button" @click.prevent="toggleSearchForm"><i data-feather="search"></i></a>
+                <a href="#" id="shopping-cart-button" @click.prevent="toggleShoppingCart">
                     <i data-feather="shopping-cart"></i>
                     <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
                 </a>
-                <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+                <a href="#" id="hamburger-menu" @click.prevent="toggleNavbar">
+                    <i data-feather="menu"></i>
+                </a>
+
             </nav>
 
-            <nav class="search-form">
+            <nav class="search-form" :class="{ 'active': isActiveSearchForm }">
                 <input type="search" id="search-box" placeholder="search here...">
                 <label for="search-box"><i data-feather="search"></i></label>
             </nav>
 
-            <nav class="shopping-cart">
+            <nav class="shopping-cart" :class="{ 'active': isActiveShoppingCart}">
                 <template x-for="(item, index) in $store.cart.items" x-keys="index">
                     <aside class="cart-item">
                         <img :src="`img/products/${item.img}`" :alt="item.name" data-aos="fade-down"
@@ -352,7 +364,9 @@
             </nav>
         </section>
 
-        <section class="modal" id="item-detail-modal" x-data="{ modalData: $store.cart.modalData }">
+        <section class="modal" id="item-detail-modal" x-data="{ 
+            modalData: { items: [] }
+        }">
             <nav class="modal-container">
                 <a href="#" class="close-icon" @click.prevent="$refs.modal.style.display = 'none'">
                     <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
@@ -361,32 +375,40 @@
                     </svg>
                 </a>
                 <aside class="modal-content" x-show="modalData.items.length > 0">
-                    <img :src="`./img/products/${modalData.items[0].img}`" :alt="modalData.items[0].name">
-                    <article class="product-content">
-                        <h3 x-text="modalData.items[0].name"></h3>
-                        <p x-text="modalData.items[0].description"></p>
-                        <article class="product-content">
-                            <h3>Coffee Beans 1</h3>
-                            <nav class="product-stars">
-                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <use href="img/feather-sprite.svg#star" />
-                                </svg>
-
-                            </nav>
-                            <article class="product-price" x-text="rupiah(modalData.items[0].price)"></article>
-                            <a href="#" @click.prevent="$store.cart.add(modalData.items[0])">
-                                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <use href="img/feather-sprite.svg#shopping-cart" />
-                                </svg>
-                                <span>Add To Cart</span>
-                            </a>
-                        </article>
-                    </article>
+                    <template x-for="(item, index) in modalData.items" :key="index">
+                        <div>
+                            <img :src="`./img/products/${item.img}`" :alt="item.name"
+                                @click="$store.modal.showModal(item)">
+                            <article class="product-content">
+                                <h3 x-text="item.name"></h3>
+                                <p x-text="item.description"></p>
+                                <article class="product-content">
+                                    <h3>Coffee Beans 1</h3>
+                                    <nav class="product-stars">
+                                        <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <use href="img/feather-sprite.svg#star" />
+                                        </svg>
+                                    </nav>
+                                    <article class="product-price" x-text="rupiah(item.price)"></article>
+                                    <a href="#" @click.prevent="$store.cart.add(item)">
+                                        <svg width="24" height="24" fill="currentColor" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <use href="img/feather-sprite.svg#shopping-cart" />
+                                        </svg>
+                                        <span>Add To Cart</span>
+                                    </a>
+                                </article>
+                            </article>
+                        </div>
+                    </template>
                 </aside>
             </nav>
         </section>
+
+
+
+
 
 
     </main>
@@ -415,7 +437,6 @@
         feather.replace();
     </script>
 
-    <script src="js/script.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();

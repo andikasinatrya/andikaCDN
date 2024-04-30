@@ -1,4 +1,5 @@
 document.addEventListener("alpine:init", () => {
+  // Product Data
   Alpine.data("products", () => ({
     items: [
       {
@@ -39,78 +40,36 @@ document.addEventListener("alpine:init", () => {
     ],
   }));
 
+  // Modal Data
+  Alpine.store("modal", {
+    showModal(dataProduct) {
+      console.log(dataProduct);
+    },
+  });
+
+  // Cart
   Alpine.store("cart", {
     items: [],
     total: 0,
     quantity: 0,
     modalData: { items: [] },
     add(newItem) {
-      // Cek apakah ada barang yang sama di cart
-      const cartItem = this.items.find((item) => item.id === newItem.id);
-
-      // Jika belum ada/ Cart Kosong
-      if (!cartItem) {
-        this.items.push({ ...newItem, quantity: 1, total: newItem.price });
-        this.quantity++;
-        this.total += newItem.price;
-      } else {
-        // Jika Barang Sudah Ada, Cek apakah barang beda atau sama dengan yang ada di cart
-        this.items = this.items.map((item) => {
-          // Jika Barang Berbeda
-          if (item.id !== newItem.id) {
-            return item;
-          } else {
-            // Jika barang sudah ada, tambah jumlah quantity dan totalnya
-            item.quantity++;
-            item.total = item.price * item.quantity;
-            this.quantity++;
-            this.total += item.price;
-            return item;
-          }
-        });
-      }
+      // Add item to cart logic
     },
     remove(id) {
-      // Ambil item yang mau di remove
-      const cartItem = this.items.find((item) => item.id === id);
-
-      // Jika Barang Lebih Dari 1
-      if (cartItem.quantity > 1) {
-        // Telusuri satu-persatu
-        this.item = this.items.map((item) => {
-          // Jika bukan barang yang di klik
-          if (item.id !== id) {
-            return item;
-          } else {
-            item.quantity--;
-            item.total = item.price * item.quantity;
-            this.quantity--;
-            this.total -= item.price;
-            return item;
-          }
-        });
-      } else if (cartItem.quantity === 1) {
-        // Jika barangnya sisa 1
-        this.items = this.items.filter((item) => item.id !== id);
-        this.quantity--;
-        this.total -= cartItem.price;
-      }
+      // Remove item from cart logic
     },
     showModal(dataProduct) {
       this.modalData.items = [dataProduct];
     },
   });
+
+  //Konfersi ke Rupiah
+  window.rupiah = (number) => {
+    return Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(number);
+  };
 });
-
-window.showModal = (dataProduct) => {
-  Alpine.store("cart").showModal(dataProduct);
-};
-
-//Konfersi ke Rupiah
-const rupiah = (number) => {
-  return Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(number);
-};
