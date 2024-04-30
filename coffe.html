@@ -20,16 +20,9 @@
 
 <body>
 
-    <header x-data="">
+    <header>
 
-        <nav class="navbar" x-data="{ 
-    isActiveNavbar: false, 
-    isActiveSearchForm: false, 
-    isActiveShoppingCart: false,
-    toggleNavbar() { this.isActiveNavbar = !this.isActiveNavbar }, 
-    toggleSearchForm() { this.isActiveSearchForm = !this.isActiveSearchForm },
-    toggleShoppingCart() { this.isActiveShoppingCart = !this.isActiveShoppingCart },
-}" x-on:click.outside="isActiveNavbar = false; isActiveSearchForm = false; isActiveShoppingCart = false">
+        <nav class="navbar" x-data="navbar" x-on:click.outside="closeAll()">
 
             <h1 class="navbar-logo">Coffee<span>Andika</span>.</h1>
 

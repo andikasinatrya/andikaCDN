@@ -1,4 +1,25 @@
 document.addEventListener("alpine:init", () => {
+  // Navbar
+  Alpine.data("navbar", () => ({
+    isActiveNavbar: false,
+    isActiveSearchForm: false,
+    isActiveShoppingCart: false,
+    toggleNavbar() {
+      this.isActiveNavbar = !this.isActiveNavbar;
+    },
+    toggleSearchForm() {
+      this.isActiveSearchForm = !this.isActiveSearchForm;
+    },
+    toggleShoppingCart() {
+      this.isActiveShoppingCart = !this.isActiveShoppingCart;
+    },
+    closeAll() {
+      this.isActiveNavbar = false;
+      this.isActiveSearchForm = false;
+      this.isActiveShoppingCart = false;
+    },
+  }));
+
   // Product Data
   Alpine.data("products", () => ({
     items: [
