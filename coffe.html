@@ -198,7 +198,7 @@
                                     <use href="img/feather-sprite.svg#shopping-cart" />
                                 </svg>
                             </a>
-                            <a href="#" class="item-detail-button">
+                            <a href="#" class="item-detail-button" @click.prevent="$store.cart.isActiveModal = true">
                                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <use href="img/feather-sprite.svg#eye" />
@@ -357,9 +357,9 @@
             </nav>
         </section>
 
-        <section class="modal" id="item-detail-modal">
+        <section class="modal" x-data x-show="$store.cart.isActiveModal">
             <nav class="modal-container">
-                <a href="#" class="close-icon">
+                <a href="#" class="close-icon" @click.prevent="$store.cart.isActiveModal = false">
                     <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <use href="img/feather-sprite.svg#x" />
@@ -367,7 +367,7 @@
                 </a>
                 <aside class="modal-content">
                     <div>
-                        <img :src="./img/menu/1.jpg" alt="gambar kopi">
+                        <img src="./img/menu/1.jpg" alt="gambar kopi">
                         <article class="product-content">
                             <h3> Americano Coffe</h3>
                             <p> Enak Dan Mantap</p>
